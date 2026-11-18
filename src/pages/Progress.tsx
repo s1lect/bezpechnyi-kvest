@@ -15,9 +15,7 @@ export function ProgressPage() {
   return (
     <div className="container page">
       <h1 className="no-print">Мої досягнення</h1>
-      <p className="lead no-print">
-        Прогрес зберігається лише в цьому браузері. Ми не збираємо імен і не створюємо акаунтів.
-      </p>
+      <p className="lead no-print">Прогрес зберігається лише в цьому браузері. Ми не збираємо імен і не створюємо акаунтів.</p>
 
       <ul className="badges no-print">
         {WORLDS.map((w) => {
@@ -27,8 +25,16 @@ export function ProgressPage() {
           return (
             <li key={w.id} className={complete ? 'badge badge--on' : 'badge'} style={{ ['--c' as string]: w.color }}>
               <svg viewBox="0 0 80 80" width="72" height="72" aria-hidden="true">
-                <path d="M40 4l30 11v22c0 20-13 33-30 39C23 70 10 57 10 37V15z" fill={complete ? w.hex : '#e6eefc'} stroke="#172b4d" strokeWidth="4" strokeLinejoin="round" />
-                {complete && <path d="M27 40l9 9 18-20" stroke="#fff" strokeWidth="6" fill="none" strokeLinecap="round" strokeLinejoin="round" />}
+                <path
+                  d="M40 4l30 11v22c0 20-13 33-30 39C23 70 10 57 10 37V15z"
+                  fill={complete ? w.hex : '#e6eefc'}
+                  stroke="#172b4d"
+                  strokeWidth="4"
+                  strokeLinejoin="round"
+                />
+                {complete && (
+                  <path d="M27 40l9 9 18-20" stroke="#fff" strokeWidth="6" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                )}
               </svg>
               <strong>{w.title}</strong>
               <span>
@@ -48,7 +54,9 @@ export function ProgressPage() {
           <h2>Сертифікат</h2>
           <p>
             Пройдено {done.length} з {QUESTS.length} квестів.{' '}
-            {all ? 'Можна роздрукувати сертифікат рятувальника!' : 'Сертифікат стане доступним після всіх квестів. Але переглянути його вже можна.'}
+            {all
+              ? 'Можна роздрукувати сертифікат рятувальника!'
+              : 'Сертифікат стане доступним після всіх квестів. Але переглянути його вже можна.'}
           </p>
           <label className="field">
             Ім'я для сертифіката (не зберігається)
@@ -76,14 +84,20 @@ export function ProgressPage() {
       {done.length > 0 && (
         <div className="certificate" aria-label="Попередній перегляд сертифіката">
           <svg viewBox="0 0 48 48" width="72" height="72" aria-hidden="true">
-            <path d="M24 3l17 6v13c0 11-7.5 19-17 23C14.5 41 7 33 7 22V9z" fill="#ffc531" stroke="#172b4d" strokeWidth="3" strokeLinejoin="round" />
+            <path
+              d="M24 3l17 6v13c0 11-7.5 19-17 23C14.5 41 7 33 7 22V9z"
+              fill="#ffc531"
+              stroke="#172b4d"
+              strokeWidth="3"
+              strokeLinejoin="round"
+            />
             <path d="M17 24l5 5 10-11" stroke="#172b4d" strokeWidth="4" fill="none" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
           <p className="certificate__kicker">Сертифікат</p>
           <h2>{name || 'Ім’я учня'}</h2>
           <p>
-            пройшов(-ла) тренування «Безпечний квест» і знає, як діяти під час повітряної тривоги, пожежі, зустрічі з вибухонебезпечними
-            предметами, шахрайством і булінгом, а також як надати першу допомогу.
+            пройшов(-ла) тренування «Безпечний квест» і знає, як діяти в надзвичайних ситуаціях, у дорозі та в мережі, як захистити свої
+            гроші, поважати межі інших і надати першу допомогу.
           </p>
           <p className="certificate__date">{today}</p>
         </div>

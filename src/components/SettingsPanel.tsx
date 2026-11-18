@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useSettings } from '../lib/settings';
+import { useSettings } from '../lib/settings-context';
 import { speak, speechSupported, whenVoicesReady } from '../lib/voice';
 import './SettingsPanel.css';
 
@@ -30,9 +30,24 @@ export function SettingsPanel({ onClose }: { onClose: () => void }) {
     <div id="settings-panel" className="settings container" role="region" aria-label="Налаштування">
       <div className="settings__grid">
         <Toggle label="Озвучення" hint="Персонажі читають репліки вголос" checked={settings.voice} onChange={(v) => update({ voice: v })} />
-        <Toggle label="Звукові ефекти" hint="Тихі сигнали правильної й неправильної відповіді" checked={settings.sound} onChange={(v) => update({ sound: v })} />
-        <Toggle label="Спокійний режим" hint="Без анімацій і звуків. Для дітей, яким тривожно" checked={settings.calm} onChange={(v) => update({ calm: v })} />
-        <Toggle label="Великий текст" hint="Більший шрифт і проміжки: проєктор, дислексія, слабкий зір" checked={settings.large} onChange={(v) => update({ large: v })} />
+        <Toggle
+          label="Звукові ефекти"
+          hint="Тихі сигнали правильної й неправильної відповіді"
+          checked={settings.sound}
+          onChange={(v) => update({ sound: v })}
+        />
+        <Toggle
+          label="Спокійний режим"
+          hint="Без анімацій і звуків. Для дітей, яким тривожно"
+          checked={settings.calm}
+          onChange={(v) => update({ calm: v })}
+        />
+        <Toggle
+          label="Великий текст"
+          hint="Більший шрифт і проміжки: проєктор, дислексія, слабкий зір"
+          checked={settings.large}
+          onChange={(v) => update({ large: v })}
+        />
       </div>
       <div className="settings__voice">
         {!speechSupported() || voices.length === 0 ? (
@@ -55,11 +70,24 @@ export function SettingsPanel({ onClose }: { onClose: () => void }) {
             </label>
             <label>
               Швидкість: {settings.rate.toFixed(1)}×
-              <input type="range" min="0.7" max="1.3" step="0.1" value={settings.rate} onChange={(e) => update({ rate: Number(e.target.value) })} />
+              <input
+                type="range"
+                min="0.7"
+                max="1.3"
+                step="0.1"
+                value={settings.rate}
+                onChange={(e) => update({ rate: Number(e.target.value) })}
+              />
             </label>
             <button
               className="btn btn--ghost btn--small"
-              onClick={() => speak('Привіт! Я Оля, рятувальниця. Так звучатиме озвучення.', { speaker: 'olya', rate: settings.rate, voiceName: settings.voiceName })}
+              onClick={() =>
+                speak('Привіт! Я Оля, рятувальниця. Так звучатиме озвучення.', {
+                  speaker: 'olya',
+                  rate: settings.rate,
+                  voiceName: settings.voiceName,
+                })
+              }
             >
               Прослухати
             </button>

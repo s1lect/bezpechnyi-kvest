@@ -1,25 +1,8 @@
 export type WorldId = 'home' | 'war' | 'cyber' | 'money' | 'people' | 'health';
 
-export type SpeakerId =
-  | 'narrator'
-  | 'olya'
-  | 'kit'
-  | 'sova'
-  | 'taras'
-  | 'mama'
-  | 'stranger'
-  | 'student';
+export type SpeakerId = 'narrator' | 'olya' | 'kit' | 'sova' | 'taras' | 'mama' | 'stranger' | 'student';
 
-export type SceneId =
-  | 'classroom'
-  | 'corridor'
-  | 'home'
-  | 'kitchen'
-  | 'street'
-  | 'field'
-  | 'phone'
-  | 'shelter'
-  | 'park';
+export type SceneId = 'classroom' | 'corridor' | 'home' | 'kitchen' | 'street' | 'field' | 'phone' | 'shelter' | 'park' | 'crossing';
 
 export interface Option {
   text: string;
@@ -60,7 +43,7 @@ export interface Hotspot {
 export interface SpotStep extends BaseStep {
   kind: 'spot';
   text: string;
-  scene: 'kitchen' | 'field';
+  scene: 'kitchen' | 'field' | 'crossing';
   hotspots: Hotspot[];
 }
 
@@ -125,22 +108,21 @@ export interface PasswordStep extends BaseStep {
   text: string;
 }
 
+export interface BreatheStep extends BaseStep {
+  kind: 'breathe';
+  text: string;
+  /** Тривалість фаз у секундах: вдих, затримка, видих, затримка. */
+  pattern: [number, number, number, number];
+  cycles: number;
+}
+
 export interface RuleStep extends BaseStep {
   kind: 'rule';
   title: string;
   points: string[];
 }
 
-export type Step =
-  | LineStep
-  | ChoiceStep
-  | SpotStep
-  | SortStep
-  | PackStep
-  | ChatStep
-  | RhythmStep
-  | PasswordStep
-  | RuleStep;
+export type Step = LineStep | ChoiceStep | SpotStep | SortStep | PackStep | ChatStep | RhythmStep | PasswordStep | BreatheStep | RuleStep;
 
 export interface LessonStage {
   minutes: number;

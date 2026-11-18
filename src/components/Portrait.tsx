@@ -42,10 +42,7 @@ export function Portrait({ id, size = 72 }: { id: SpeakerId; size?: number }) {
       break;
     case 'taras':
       art = (
-        <Face
-          body="#d9488f"
-          hair={<path d="M33 48c-2-20 12-28 27-28 16 0 30 8 27 26-8-8-20-12-34-8-8 2-14 6-20 10z" fill="#2a1d14" />}
-        />
+        <Face body="#d9488f" hair={<path d="M33 48c-2-20 12-28 27-28 16 0 30 8 27 26-8-8-20-12-34-8-8 2-14 6-20 10z" fill="#2a1d14" />} />
       );
       break;
     case 'mama':
@@ -58,12 +55,7 @@ export function Portrait({ id, size = 72 }: { id: SpeakerId; size?: number }) {
       );
       break;
     case 'student':
-      art = (
-        <Face
-          body="#2b5be8"
-          hair={<path d="M34 46c0-18 12-26 26-26s26 8 26 26c-10-6-16-10-26-10s-16 4-26 10z" fill="#3b2a1a" />}
-        />
-      );
+      art = <Face body="#2b5be8" hair={<path d="M34 46c0-18 12-26 26-26s26 8 26 26c-10-6-16-10-26-10s-16 4-26 10z" fill="#3b2a1a" />} />;
       break;
     case 'kit':
       art = (
@@ -100,7 +92,9 @@ export function Portrait({ id, size = 72 }: { id: SpeakerId; size?: number }) {
           <circle cx="60" cy="60" r="56" fill="#dfe6f3" />
           <rect x="38" y="20" width="44" height="80" rx="9" fill={INK} />
           <rect x="43" y="28" width="34" height="58" rx="4" fill="#4a5d7e" />
-          <text x="60" y="70" textAnchor="middle" fontSize="36" fontWeight="800" fill="#ffc531" fontFamily="Unbounded, sans-serif">?</text>
+          <text x="60" y="70" textAnchor="middle" fontSize="36" fontWeight="800" fill="#ffc531" fontFamily="Unbounded, sans-serif">
+            ?
+          </text>
         </>
       );
       break;
@@ -114,7 +108,13 @@ export function Portrait({ id, size = 72 }: { id: SpeakerId; size?: number }) {
       );
   }
   return (
-    <svg viewBox="0 0 120 120" width={size} height={size} aria-hidden="true" style={{ overflow: 'hidden', borderRadius: '50%', background: '#e6eefc' }}>
+    <svg
+      viewBox="0 0 120 120"
+      width={size}
+      height={size}
+      aria-hidden="true"
+      style={{ overflow: 'hidden', borderRadius: '50%', background: '#e6eefc' }}
+    >
       {art}
     </svg>
   );

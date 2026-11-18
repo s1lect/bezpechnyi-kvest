@@ -15,11 +15,11 @@ export function HelpButton() {
 
   return (
     <>
-      <button className="help-fab no-print" onClick={() => setOpen(true)}>
+      <button className="help-fab no-print" onClick={() => setOpen(true)} aria-label="Потрібна допомога">
         <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
           <path d="M12 21s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.8-8 11-8 11z" fill="currentColor" />
         </svg>
-        Потрібна допомога
+        <span className="help-fab__label">Потрібна допомога</span>
       </button>
       <dialog ref={dialog} className="help-dialog" onClose={() => setOpen(false)} aria-labelledby="help-title">
         <div className="help-dialog__head">

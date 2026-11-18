@@ -54,7 +54,9 @@ function Corridor() {
       <rect x="760" y="190" width="110" height="250" rx="6" fill="#ff8a3d" {...S} />
       <circle cx="850" cy="320" r="7" fill={INK} />
       <rect x="430" y="150" width="140" height="44" rx="6" fill="#1fa97a" {...S} />
-      <text x="500" y="181" textAnchor="middle" fontFamily="Unbounded, sans-serif" fontSize="22" fontWeight="700" fill="#fff">ВИХІД</text>
+      <text x="500" y="181" textAnchor="middle" fontFamily="Unbounded, sans-serif" fontSize="22" fontWeight="700" fill="#fff">
+        ВИХІД
+      </text>
       <rect x="455" y="230" width="90" height="100" fill="#cfdcf2" {...S} />
     </>
   );
@@ -107,7 +109,13 @@ function Kitchen() {
       <rect x="180" y="360" width="100" height="70" rx="6" fill="#26345a" {...S} />
       <ellipse cx="210" cy="280" rx="56" ry="12" fill="#2a2f3a" {...S} />
       <path d="M266 280h60" stroke={INK} strokeWidth="10" strokeLinecap="round" />
-      <path d="M168 274c4-26 16-20 14-44 14 14 10 26 18 30 2-22 12-34 10-56 18 20 18 40 16 52 8-6 10-18 8-28 14 14 16 32 10 46z" fill="#ff8a3d" stroke="#e14b57" strokeWidth="3" strokeLinejoin="round" />
+      <path
+        d="M168 274c4-26 16-20 14-44 14 14 10 26 18 30 2-22 12-34 10-56 18 20 18 40 16 52 8-6 10-18 8-28 14 14 16 32 10 46z"
+        fill="#ff8a3d"
+        stroke="#e14b57"
+        strokeWidth="3"
+        strokeLinejoin="round"
+      />
       <path d="M192 274c2-12 8-10 8-22 8 8 6 16 10 18 2-10 6-14 6-22 8 10 8 18 6 26z" fill="#ffc531" />
       {/* рушник (towel 33%,33%) */}
       <circle cx="330" cy="168" r="6" fill={INK} />
@@ -145,7 +153,9 @@ function Street() {
       <rect width="1000" height="600" fill="#cfe6ff" />
       <rect x="40" y="120" width="200" height="330" fill="#9aa8c1" {...S} />
       {[0, 1, 2, 3].map((r) =>
-        [0, 1, 2].map((c) => <rect key={`${r}${c}`} x={62 + c * 60} y={150 + r * 70} width="36" height="40" fill="#e8f1ff" {...S} strokeWidth={3} />),
+        [0, 1, 2].map((c) => (
+          <rect key={`${r}${c}`} x={62 + c * 60} y={150 + r * 70} width="36" height="40" fill="#e8f1ff" {...S} strokeWidth={3} />
+        )),
       )}
       <rect x="560" y="90" width="400" height="360" fill="#7fd0e8" {...S} />
       {[0, 1, 2, 3, 4].map((i) => (
@@ -155,7 +165,9 @@ function Street() {
       <path d="M600 130l60 60M760 250l50 50" stroke="#fff" strokeWidth="6" opacity=".7" strokeLinecap="round" />
       <rect x="330" y="290" width="140" height="160" fill="#f3f7ff" {...S} />
       <circle cx="400" cy="250" r="34" fill="#e14b57" {...S} />
-      <text x="400" y="264" textAnchor="middle" fontFamily="Unbounded, sans-serif" fontSize="38" fontWeight="800" fill="#fff">М</text>
+      <text x="400" y="264" textAnchor="middle" fontFamily="Unbounded, sans-serif" fontSize="38" fontWeight="800" fill="#fff">
+        М
+      </text>
       <path d="M345 450v-90h110v90" fill="#2a2f3a" {...S} />
       <path d="M360 450l10-20h60l10 20" stroke="#ffc531" strokeWidth="4" fill="none" />
       <rect y="450" width="1000" height="150" fill="#6b7790" />
@@ -196,7 +208,9 @@ function Field() {
       <circle cx="790" cy="222" r="11" fill="#fff" />
       <path d="M782 238h16" stroke="#fff" strokeWidth="5" strokeLinecap="round" />
       <rect x="748" y="268" width="84" height="32" rx="4" fill="#fff" {...S} strokeWidth={3} />
-      <text x="790" y="291" textAnchor="middle" fontFamily="Unbounded, sans-serif" fontSize="17" fontWeight="800" fill="#e14b57">МІНИ</text>
+      <text x="790" y="291" textAnchor="middle" fontFamily="Unbounded, sans-serif" fontSize="17" fontWeight="800" fill="#e14b57">
+        МІНИ
+      </text>
       <path d="M660 320l300-40" stroke="#e14b57" strokeWidth="6" strokeDasharray="22 14" />
       <path d="M660 320v40M960 280v40" {...S} />
       {/* пошкоджена техніка (tank 90%,66%) */}
@@ -214,6 +228,108 @@ function Field() {
           <circle cx={x} cy={234 + i * 4} r="28" fill="#3d9b4f" {...S} />
         </g>
       ))}
+    </>
+  );
+}
+
+function Person({
+  x,
+  y,
+  body,
+  hair = '#3b2a1a',
+  scale = 1,
+  flip = false,
+}: {
+  x: number;
+  y: number;
+  body: string;
+  hair?: string;
+  scale?: number;
+  flip?: boolean;
+}) {
+  return (
+    <g transform={`translate(${x} ${y}) scale(${flip ? -scale : scale} ${scale})`}>
+      <path d="M-8 0l-6 34M8 0l6 34" {...S} />
+      <rect x="-16" y="-46" width="32" height="50" rx="12" fill={body} {...S} />
+      <circle cx="0" cy="-62" r="16" fill="#f6c9a6" {...S} />
+      <path d="M-16 -64c0-14 8-20 16-20s16 6 16 18c-6-6-14-8-22-6z" fill={hair} />
+    </g>
+  );
+}
+
+function Crossing() {
+  return (
+    <>
+      <rect width="1000" height="600" fill="#ffe7c7" />
+      <circle cx="840" cy="90" r="46" fill="#ffb169" opacity=".7" />
+      {/* будинки вдалині */}
+      <rect x="20" y="90" width="150" height="180" fill="#c3b2e6" {...S} />
+      <rect x="560" y="60" width="180" height="210" fill="#9fc6e8" {...S} />
+      <rect x="760" y="130" width="220" height="140" fill="#f2a7a7" {...S} />
+      {[
+        [50, 120],
+        [110, 120],
+        [50, 190],
+        [110, 190],
+        [590, 100],
+        [660, 100],
+        [590, 180],
+        [660, 180],
+        [790, 170],
+        [870, 170],
+      ].map(([x, y]) => (
+        <rect key={`${x}${y}`} x={x} y={y} width="34" height="40" fill="#fff6d6" {...S} strokeWidth={3} />
+      ))}
+      {/* тротуари й дорога */}
+      <rect y="270" width="1000" height="60" fill="#d7d2c8" {...S} />
+      <rect y="330" width="1000" height="190" fill="#5f6b82" />
+      <rect y="520" width="1000" height="80" fill="#d7d2c8" {...S} />
+      <path d="M0 425h1000" stroke="#ffc531" strokeWidth="6" strokeDasharray="40 30" />
+      {/* зебра */}
+      {[300, 336, 372, 408, 444].map((x) => (
+        <rect key={x} x={x} y="336" width="22" height="178" fill="#fff" />
+      ))}
+      {/* світлофор: червоний для пішоходів */}
+      <path d="M252 330V150" {...S} strokeWidth={7} />
+      <rect x="226" y="120" width="52" height="96" rx="10" fill={INK} />
+      <circle cx="252" cy="146" r="16" fill="#e14b57" />
+      <circle cx="252" cy="190" r="16" fill="#3a4a6b" />
+      <path d="M248 138a4 4 0 1 0 8 0 4 4 0 1 0-8 0M246 146h12l-2 12h-8z" fill="#fff" />
+      {/* авто, що наближається */}
+      <g transform="translate(70 360)">
+        <rect x="0" y="20" width="170" height="44" rx="14" fill="#2b5be8" {...S} />
+        <path d="M30 20l22-26h64l26 26z" fill="#bfe0ff" {...S} />
+        <circle cx="40" cy="66" r="15" fill={INK} />
+        <circle cx="130" cy="66" r="15" fill={INK} />
+        <path d="M172 38h28M172 50h20" stroke="#ffc531" strokeWidth="5" strokeLinecap="round" />
+      </g>
+      {/* хлопчик переходить на червоне (red 34%,66%) */}
+      <Person x={340} y={410} body="#ff8a3d" />
+      {/* дитина на самокаті по зебрі (scooter 41%,80%) */}
+      <g>
+        <Person x={410} y={470} body="#20a36b" scale={0.85} />
+        <path d="M392 508h40l8-52M432 456h14" {...S} fill="none" />
+        <circle cx="394" cy="512" r="7" fill={INK} />
+        <circle cx="432" cy="512" r="7" fill={INK} />
+      </g>
+      {/* дівчинка з телефоном і навушниками на краю тротуару (phone 54%,91%) */}
+      <g>
+        <Person x={540} y={562} body="#d9488f" hair="#7a3e1d" scale={0.9} />
+        <path d="M526 498a16 16 0 0 1 28 0" stroke={INK} strokeWidth="5" fill="none" />
+        <rect x="552" y="520" width="14" height="22" rx="3" fill={INK} />
+      </g>
+      {/* припарковане авто і дитина, що вибігає за м'ячем (ball 79%,78%) */}
+      <g transform="translate(600 440)">
+        <rect x="0" y="20" width="150" height="44" rx="14" fill="#e5484d" {...S} />
+        <path d="M24 20l20-24h56l22 24z" fill="#bfe0ff" {...S} />
+        <circle cx="34" cy="66" r="14" fill={INK} />
+        <circle cx="118" cy="66" r="14" fill={INK} />
+      </g>
+      <Person x={790} y={490} body="#5b6cff" scale={0.8} flip />
+      <circle cx="752" cy="496" r="13" fill="#fff" {...S} />
+      <path d="M742 490l20 12M752 483v26" stroke="#e14b57" strokeWidth="3" />
+      {/* дорослий переходить поза переходом (jaywalk 93%,63%) */}
+      <Person x={930} y={400} body="#6b7790" hair="#2a1d14" flip />
     </>
   );
 }
@@ -297,6 +413,7 @@ export function Scene({
     shelter: <Shelter />,
     park: <Park />,
     phone: <PhoneBg />,
+    crossing: <Crossing />,
   };
   return (
     <svg className={className} viewBox="0 0 1000 600" preserveAspectRatio={`xMidYMid ${fit}`} aria-hidden={children ? undefined : true}>

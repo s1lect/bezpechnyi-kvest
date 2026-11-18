@@ -39,8 +39,8 @@ export function ParentsPage() {
       <section className="band">
         <h2>Пройдіть квест разом</h2>
         <p>
-          Почніть з <Link to="/quest/povitriana-tryvoha">«Повітряної тривоги»</Link> або <Link to="/quest/dzvinok-z-banku">«Дзвінка з банку»</Link>.
-          Після проходження запитайте дитину: «Що б ти зробив інакше?»
+          Почніть з <Link to="/quest/povitriana-tryvoha">«Повітряної тривоги»</Link> або{' '}
+          <Link to="/quest/dzvinok-z-banku">«Дзвінка з банку»</Link>. Після проходження запитайте дитину: «Що б ти зробив інакше?»
         </p>
       </section>
       <section className="band">

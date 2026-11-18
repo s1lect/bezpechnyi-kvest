@@ -15,7 +15,7 @@ export function Home() {
             «Здоров'я, безпека та добробут» за програмою НУШ.
           </p>
           <div className="hero__actions">
-            <Link to={`/quest/${QUESTS[1].id}`} className="btn btn--signal">
+            <Link to="/quest/povitriana-tryvoha" className="btn btn--signal">
               Пройти перший квест
             </Link>
             <Link to="/teacher" className="btn btn--ghost">

@@ -20,8 +20,14 @@
   border-radius: var(--r-md);
   cursor: pointer;
 }
-.toggle strong { display: block; }
-.toggle small { color: var(--ink-soft); line-height: 1.3; display: block; }
+.toggle strong {
+  display: block;
+}
+.toggle small {
+  color: var(--ink-soft);
+  line-height: 1.3;
+  display: block;
+}
 
 .toggle input {
   appearance: none;
@@ -47,8 +53,12 @@
   border: 2px solid var(--ink);
   transition: transform 0.15s;
 }
-.toggle input:checked { background: var(--ok); }
-.toggle input:checked::after { transform: translateX(20px); }
+.toggle input:checked {
+  background: var(--ok);
+}
+.toggle input:checked::after {
+  transform: translateX(20px);
+}
 
 .settings__voice {
   display: flex;
@@ -57,7 +67,12 @@
   gap: 1rem 1.5rem;
   margin-top: 1rem;
 }
-.settings__voice label { display: grid; gap: 0.3rem; font-weight: 600; font-size: var(--t-sm); }
+.settings__voice label {
+  display: grid;
+  gap: 0.3rem;
+  font-weight: 600;
+  font-size: var(--t-sm);
+}
 .settings__voice select {
   font: inherit;
   padding: 0.5rem;

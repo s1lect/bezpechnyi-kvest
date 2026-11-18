@@ -152,7 +152,14 @@ export function CityMap() {
       <svg className="citymap citymap--wide" viewBox="0 0 1180 660" role="group" aria-label="Карта міста: оберіть район, щоб почати">
         <rect width="1180" height="660" rx="28" fill="#e6eefc" />
         <path d="M-20 300c180 40 340-40 520 10s340 90 720-10v60c-380 100-560 30-720-10s-340 30-520-10z" fill="#9ccaf5" />
-        <path d="M40 318c120 18 220-6 300-8M760 360c120 10 220-10 320-26" stroke="#fff" strokeWidth="4" strokeLinecap="round" opacity=".7" fill="none" />
+        <path
+          d="M40 318c120 18 220-6 300-8M760 360c120 10 220-10 320-26"
+          stroke="#fff"
+          strokeWidth="4"
+          strokeLinecap="round"
+          opacity=".7"
+          fill="none"
+        />
         <path d="M350 160h90M740 160h90M350 500h90M740 500h90" stroke="#fff" strokeWidth="26" strokeLinecap="round" />
         {[200, 590, 980].map((x) => (
           <g key={x}>

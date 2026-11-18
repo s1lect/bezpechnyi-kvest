@@ -14,7 +14,7 @@
 1. Зробіть fork і створіть гілку: `git checkout -b feature/nazva`.
 2. Встановіть залежності `npm install` і запустіть `npm run dev`.
 3. Новий квест додавайте за інструкцією [docs/CONTENT_GUIDE.md](docs/CONTENT_GUIDE.md).
-4. Перед комітом перевірте: `npm run lint` і `npm run build`.
+4. Перед комітом перевірте: `npm run format`, `npm run lint`, `npm test` і `npm run build`.
 5. Відкрийте pull request і коротко опишіть, що змінилося і навіщо.
 
 ## Правила змісту

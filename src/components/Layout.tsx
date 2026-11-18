@@ -1,13 +1,21 @@
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
+import { ErrorBoundary } from './ErrorBoundary';
 import { HelpButton } from './HelpButton';
+import { Loading } from './Loading';
 import { SettingsPanel } from './SettingsPanel';
 import './Layout.css';
 
 function Logo() {
   return (
     <svg width="40" height="40" viewBox="0 0 48 48" aria-hidden="true">
-      <path d="M24 3l17 6v13c0 11-7.5 19-17 23C14.5 41 7 33 7 22V9z" fill="#ffc531" stroke="#172b4d" strokeWidth="3" strokeLinejoin="round" />
+      <path
+        d="M24 3l17 6v13c0 11-7.5 19-17 23C14.5 41 7 33 7 22V9z"
+        fill="#ffc531"
+        stroke="#172b4d"
+        strokeWidth="3"
+        strokeLinejoin="round"
+      />
       <path d="M17 24l5 5 10-11" stroke="#172b4d" strokeWidth="4" fill="none" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
@@ -24,7 +32,9 @@ export function Layout() {
 
   return (
     <div className={immersive ? 'shell shell--immersive' : 'shell'}>
-      <a className="skip" href="#main">Перейти до змісту</a>
+      <a className="skip" href="#main">
+        Перейти до змісту
+      </a>
       <header className="topbar no-print">
         <div className="container topbar__inner">
           <Link to="/" className="brand">
@@ -32,7 +42,9 @@ export function Layout() {
             <span className="brand__name">Безпечний квест</span>
           </Link>
           <nav className="topnav" aria-label="Головна навігація">
-            <NavLink to="/" end>Карта</NavLink>
+            <NavLink to="/" end>
+              Карта
+            </NavLink>
             <NavLink to="/teacher">Вчителю</NavLink>
             <NavLink to="/parents">Батькам</NavLink>
             <NavLink to="/progress">Мої досягнення</NavLink>
@@ -56,20 +68,26 @@ export function Layout() {
       </header>
 
       <main id="main">
-        <Outlet />
+        <ErrorBoundary key={pathname}>
+          <Suspense fallback={<Loading />}>
+            <Outlet />
+          </Suspense>
+        </ErrorBoundary>
       </main>
 
       {!immersive && (
         <footer className="footer no-print">
           <div className="container footer__inner">
             <p>
-              Безпечний квест — відкритий освітній проєкт для закладів загальної середньої освіти. Зміст узгоджено з модельними
-              програмами НУШ і потребує фахового рецензування перед офіційним використанням.
+              Безпечний квест — відкритий освітній проєкт для закладів загальної середньої освіти. Зміст узгоджено з модельними програмами
+              НУШ і потребує фахового рецензування перед офіційним використанням.
             </p>
             <nav aria-label="Додатково">
               <Link to="/teacher/curriculum">Відповідність програмі НУШ</Link>
               <Link to="/about">Про проєкт</Link>
-              <a href="https://github.com/s1lect/bezpechnyi-kvest" rel="noreferrer">Код на GitHub</a>
+              <a href="https://github.com/s1lect/bezpechnyi-kvest" rel="noreferrer">
+                Код на GitHub
+              </a>
             </nav>
           </div>
         </footer>

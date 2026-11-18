@@ -11,8 +11,8 @@
 import type { Quest } from '../../types';
 
 export const myQuest: Quest = {
-  id: 'my-quest',                 // латиницею, стане адресою: #/quest/my-quest
-  world: 'cyber',                 // home | war | cyber | money | people | health
+  id: 'my-quest', // латиницею, стане адресою: #/quest/my-quest
+  world: 'cyber', // home | war | cyber | money | people | health
   title: 'Назва квесту',
   tagline: 'Одне речення, що зачіпає: ситуація, з якої починається історія.',
   grades: '5–9',
@@ -26,9 +26,7 @@ export const myQuest: Quest = {
     discussion: ['Питання для обговорення'],
     homework: 'Завдання, бажано разом із родиною.',
   },
-  steps: [
-    /* кроки — див. нижче */
-  ],
+  steps: [/* кроки — див. нижче */],
 };
 ```
 
@@ -38,7 +36,7 @@ export const myQuest: Quest = {
 
 ```ts
 import { myQuest } from './my-quest';
-export const QUESTS: Quest[] = [/* … */, myQuest];
+export const QUESTS: Quest[] = [, /* … */ myQuest];
 ```
 
 ## 3. Типи кроків
@@ -46,7 +44,7 @@ export const QUESTS: Quest[] = [/* … */, myQuest];
 Кожен крок має унікальний `id`. Необов'язкові поля для всіх: `scene` (фон), `speaker` (хто говорить), `audio` (шлях до записаного
 аудіо замість синтезу мовлення).
 
-**Сцени:** `classroom`, `corridor`, `home`, `kitchen`, `street`, `field`, `phone`, `shelter`, `park`.
+**Сцени:** `classroom`, `corridor`, `home`, `kitchen`, `street`, `field`, `crossing`, `phone`, `shelter`, `park`.
 
 **Персонажі:** `narrator`, `olya` (рятувальниця), `kit` (Кібер-Кіт), `sova` (Сова Гривня), `taras` (однокласник), `mama`,
 `stranger` (невідомий у телефоні), `student`.
@@ -59,7 +57,7 @@ export const QUESTS: Quest[] = [/* … */, myQuest];
 
 ### Вибір
 
-Порядок варіантів перемішується автоматично. Пояснення пишіть так, щоб учень зрозумів, *чому*, — без докорів.
+Порядок варіантів перемішується автоматично. Пояснення пишіть так, щоб учень зрозумів, _чому_, — без докорів.
 
 ```ts
 {
@@ -74,7 +72,7 @@ export const QUESTS: Quest[] = [/* … */, myQuest];
 
 ### Знайди небезпеку
 
-Працює на сценах `kitchen` і `field`. Координати `x`, `y`, `r` — у відсотках від ширини (x, r) і висоти (y) ілюстрації 1000×600.
+Працює на сценах `kitchen`, `field` і `crossing`. Координати `x`, `y`, `r` — у відсотках від ширини (x, r) і висоти (y) ілюстрації 1000×600.
 
 ```ts
 {
@@ -119,6 +117,14 @@ export const QUESTS: Quest[] = [/* … */, myQuest];
 }
 ```
 
+### Дихальна вправа
+
+Тривалість фаз у секундах: вдих, затримка, видих, затримка. Крок не оцінюється, його можна завершити раніше.
+
+```ts
+{ id: 'breathe', kind: 'breathe', speaker: 'olya', text: 'Дихаємо разом.', pattern: [4, 4, 4, 4], cycles: 3 }
+```
+
 ### Ритм, пароль, правила
 
 ```ts
@@ -128,6 +134,11 @@ export const QUESTS: Quest[] = [/* … */, myQuest];
 ```
 
 Останнім кроком квесту завжди має бути `rule` — короткий підсумок, який учень може переписати в зошит.
+
+## Перевірка
+
+Після змін запустіть `npm test`. Тест змісту одразу підкаже, якщо в питанні немає правильної відповіді, фрагмент чату не
+збігається з текстом, зони пошуку перекриваються або урок не вкладається у 40–45 хвилин.
 
 ## Вимоги до змісту
 
