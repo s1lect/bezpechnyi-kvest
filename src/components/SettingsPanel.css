@@ -1,4 +1,5 @@
 .settings {
+  animation: panelDown 0.35s var(--ease-out);
   padding-block: 1.25rem 1.5rem;
   border-top: 2px dashed var(--line);
 }
@@ -87,4 +88,14 @@
   border-radius: var(--r-md);
   background: #fff4d1;
   font-size: var(--t-sm);
+}
+
+@keyframes panelDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+.toggle input::after {
+  transition: transform 0.35s var(--ease-spring);
 }

@@ -5,7 +5,7 @@ export function NotFound() {
     <div className="container page">
       <h1>Такої сторінки немає</h1>
       <p className="lead">Можливо, посилання застаріло. Поверніться на карту міста й оберіть квест.</p>
-      <Link to="/" className="btn btn--signal">
+      <Link viewTransition to="/" className="btn btn--signal">
         До карти
       </Link>
     </div>

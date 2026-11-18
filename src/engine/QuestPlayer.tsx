@@ -1,11 +1,15 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { flushSync } from 'react-dom';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import QRCode from 'qrcode';
 import { Portrait } from '../components/Portrait';
 import { Scene } from '../components/Scene';
 import { QUESTS } from '../data/quests';
 import { worldById } from '../data/worlds';
+import { withViewTransition } from '../lib/motion';
+import { confettiFrom } from '../lib/confetti';
 import { saveResult } from '../lib/progress';
+import { useCountUp } from '../lib/useCountUp';
 import { stopSpeaking } from '../lib/voice';
 import type { Quest } from '../types';
 import { useSfx } from './hooks';
@@ -32,9 +36,23 @@ function QrToPhones() {
   );
 }
 
-function Badge({ color }: { color: string }) {
+function ResultScore({ score, total }: { score: number; total: number }) {
+  const shown = useCountUp(score, 800, 450);
   return (
-    <svg viewBox="0 0 120 120" width="120" height="120" aria-hidden="true" className="result__badge">
+    <p className="result__score">
+      З першої спроби: <strong>{shown}</strong> з {total}
+    </p>
+  );
+}
+
+function Badge({ color }: { color: string }) {
+  const ref = useRef<SVGSVGElement>(null);
+  useEffect(() => {
+    const t = window.setTimeout(() => confettiFrom(ref.current, { count: 150, spread: 1.4, power: 1.35 }), 250);
+    return () => window.clearTimeout(t);
+  }, []);
+  return (
+    <svg ref={ref} viewBox="0 0 120 120" width="120" height="120" aria-hidden="true" className="result__badge">
       <circle cx="60" cy="60" r="54" fill={color} stroke="#172b4d" strokeWidth="5" />
       <circle cx="60" cy="60" r="40" fill="none" stroke="#fff" strokeWidth="3" strokeDasharray="4 6" />
       <path d="M40 62l14 14 28-30" stroke="#fff" strokeWidth="9" fill="none" strokeLinecap="round" strokeLinejoin="round" />
@@ -64,21 +82,30 @@ export function QuestPlayer({ quest }: { quest: Quest }) {
     };
   }, [quest.title]);
 
-  const restart = () => {
-    setIndex(0);
-    setScore(0);
-    setPhase('play');
-  };
+  const restart = () =>
+    transition(() => {
+      setIndex(0);
+      setScore(0);
+      setPhase('play');
+    });
+
+  /** Зміна кроку чи екрана — через View Transition: сцена виїжджає, діалог змінюється плавно. */
+  const transition = (update: () => void) => withViewTransition(() => flushSync(update));
 
   const onDone: Done = (firstTry) => {
     const newScore = score + (firstTry ? 1 : 0);
-    setScore(newScore);
     if (index + 1 >= quest.steps.length) {
       saveResult(quest.id, { score: newScore, total, completedAt: new Date().toISOString() });
       fx.finish();
-      setPhase('result');
+      transition(() => {
+        setScore(newScore);
+        setPhase('result');
+      });
     } else {
-      setIndex(index + 1);
+      transition(() => {
+        setScore(newScore);
+        setIndex(index + 1);
+      });
     }
   };
 
@@ -126,7 +153,9 @@ export function QuestPlayer({ quest }: { quest: Quest }) {
           <Scene id={introScene} className="intro__bg" />
           <div className="intro__card">
             <Portrait id={world.guide} size={88} />
-            <h1 id="quest-title">{quest.title}</h1>
+            <h1 id="quest-title" style={{ viewTransitionName: `quest-title-${quest.id}` }}>
+              {quest.title}
+            </h1>
             <p className="intro__tagline">{quest.tagline}</p>
             <div className="intro__meta">
               <span className="tag">{quest.grades} класи</span>
@@ -134,7 +163,7 @@ export function QuestPlayer({ quest }: { quest: Quest }) {
               <span className="tag">{total} завдань</span>
             </div>
             <div className="intro__actions">
-              <button className="btn btn--signal" onClick={() => setPhase('play')} autoFocus>
+              <button className="btn btn--signal" onClick={() => transition(() => setPhase('play'))} autoFocus>
                 Почати квест
               </button>
               <button className="btn btn--ghost" onClick={toggleClass} aria-pressed={classMode}>
@@ -150,7 +179,7 @@ export function QuestPlayer({ quest }: { quest: Quest }) {
               </p>
             )}
             {showQr && <QrToPhones />}
-            <Link to={`/teacher/lesson/${quest.id}`} className="intro__lesson">
+            <Link viewTransition to={`/teacher/lesson/${quest.id}`} className="intro__lesson">
               Конспект уроку для вчителя
             </Link>
           </div>
@@ -164,20 +193,16 @@ export function QuestPlayer({ quest }: { quest: Quest }) {
           <div className="result__card">
             <Badge color={world.hex} />
             <h1 id="result-title">Квест пройдено!</h1>
-            {total > 0 && (
-              <p className="result__score">
-                З першої спроби: <strong>{score}</strong> з {total}
-              </p>
-            )}
+            {total > 0 && <ResultScore score={score} total={total} />}
             <p>{verdict(score, total)}</p>
             <div className="intro__actions">
               <button className="btn btn--ghost" onClick={restart}>
                 Пройти ще раз
               </button>
-              <Link className="btn btn--signal" to={`/quest/${nextQuest.id}`}>
+              <Link viewTransition className="btn btn--signal" to={`/quest/${nextQuest.id}`}>
                 Далі: {nextQuest.title}
               </Link>
-              <Link className="btn btn--ghost" to="/progress">
+              <Link viewTransition className="btn btn--ghost" to="/progress">
                 Мої досягнення
               </Link>
             </div>

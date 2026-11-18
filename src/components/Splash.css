@@ -1,0 +1,134 @@
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  background: var(--ink);
+  color: var(--white);
+  clip-path: circle(150% at 50% 50%);
+}
+
+.splash--out {
+  animation: splashIris 0.75s var(--ease-in-out) forwards;
+}
+
+@keyframes splashIris {
+  to {
+    clip-path: circle(0% at 50% 50%);
+  }
+}
+
+.splash__inner {
+  display: grid;
+  justify-items: center;
+  gap: 1.25rem;
+}
+
+.splash--out .splash__inner {
+  animation: splashLift 0.5s var(--ease-in-out) forwards;
+}
+
+@keyframes splashLift {
+  to {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+}
+
+.splash__logo {
+  width: 112px;
+  height: 112px;
+  overflow: visible;
+}
+
+.splash__shield {
+  fill: var(--signal);
+  fill-opacity: 0;
+  stroke: var(--signal);
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+  stroke-dasharray: 130;
+  stroke-dashoffset: 130;
+  animation:
+    draw 0.7s var(--ease-out) forwards,
+    fillIn 0.3s ease-out 0.55s forwards;
+}
+
+.splash__check {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 30;
+  stroke-dashoffset: 30;
+  animation: draw 0.35s var(--ease-out) 0.8s forwards;
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes fillIn {
+  to {
+    fill-opacity: 1;
+  }
+}
+
+.splash__logo {
+  animation: logoPop 0.5s var(--ease-spring) 0.95s;
+}
+
+@keyframes logoPop {
+  40% {
+    transform: scale(1.12) rotate(-4deg);
+  }
+}
+
+.splash__title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  letter-spacing: -0.02em;
+  display: flex;
+  overflow: hidden;
+  padding-bottom: 0.1em;
+}
+
+.splash__title span {
+  display: inline-block;
+  transform: translateY(110%);
+  animation: letterUp 0.5s var(--ease-out) forwards;
+}
+
+@keyframes letterUp {
+  to {
+    transform: none;
+  }
+}
+
+.splash__bar {
+  width: 160px;
+  height: 4px;
+  border-radius: var(--r-pill);
+  background: rgb(255 255 255 / 0.15);
+  overflow: hidden;
+}
+
+.splash__bar span {
+  display: block;
+  height: 100%;
+  background: var(--signal);
+  transform-origin: left;
+  transform: scaleX(0);
+  animation: barFill 1.5s var(--ease-in-out) forwards;
+}
+
+@keyframes barFill {
+  to {
+    transform: scaleX(1);
+  }
+}

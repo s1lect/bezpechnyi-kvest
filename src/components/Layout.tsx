@@ -3,6 +3,8 @@ import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 import { ErrorBoundary } from './ErrorBoundary';
 import { HelpButton } from './HelpButton';
 import { Loading } from './Loading';
+import { NavPill } from './NavPill';
+import { Splash } from './Splash';
 import { SettingsPanel } from './SettingsPanel';
 import './Layout.css';
 
@@ -32,23 +34,30 @@ export function Layout() {
 
   return (
     <div className={immersive ? 'shell shell--immersive' : 'shell'}>
+      <Splash />
       <a className="skip" href="#main">
         Перейти до змісту
       </a>
       <header className="topbar no-print">
         <div className="container topbar__inner">
-          <Link to="/" className="brand">
+          <Link viewTransition to="/" className="brand">
             <Logo />
             <span className="brand__name">Безпечний квест</span>
           </Link>
-          <nav className="topnav" aria-label="Головна навігація">
-            <NavLink to="/" end>
+          <NavPill label="Головна навігація" watch={pathname}>
+            <NavLink to="/" end viewTransition>
               Карта
             </NavLink>
-            <NavLink to="/teacher">Вчителю</NavLink>
-            <NavLink to="/parents">Батькам</NavLink>
-            <NavLink to="/progress">Мої досягнення</NavLink>
-          </nav>
+            <NavLink to="/teacher" viewTransition>
+              Вчителю
+            </NavLink>
+            <NavLink to="/parents" viewTransition>
+              Батькам
+            </NavLink>
+            <NavLink to="/progress" viewTransition>
+              Мої досягнення
+            </NavLink>
+          </NavPill>
           <button
             className="icon-btn"
             aria-expanded={settingsOpen}
@@ -83,8 +92,12 @@ export function Layout() {
               НУШ і потребує фахового рецензування перед офіційним використанням.
             </p>
             <nav aria-label="Додатково">
-              <Link to="/teacher/curriculum">Відповідність програмі НУШ</Link>
-              <Link to="/about">Про проєкт</Link>
+              <Link viewTransition to="/teacher/curriculum">
+                Відповідність програмі НУШ
+              </Link>
+              <Link viewTransition to="/about">
+                Про проєкт
+              </Link>
               <a href="https://github.com/s1lect/bezpechnyi-kvest" rel="noreferrer">
                 Код на GitHub
               </a>

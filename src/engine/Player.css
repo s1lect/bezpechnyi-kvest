@@ -817,11 +817,62 @@
     transform: none;
   }
 }
-.frame {
-  animation: frameIn 0.25s ease-out;
+/* Без View Transitions — прості анімації появи; з ними — перехід нижче */
+@supports not (view-transition-name: none) {
+  .frame {
+    animation: frameIn 0.25s ease-out;
+  }
+  .stage__content {
+    animation: stageIn 0.4s var(--ease-out);
+  }
 }
-.stage__content {
-  animation: stageIn 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+.stage {
+  view-transition-name: quest-stage;
+}
+.dialog {
+  view-transition-name: quest-dialog;
+}
+.player__bar {
+  view-transition-name: quest-bar;
+}
+::view-transition-group(quest-bar) {
+  animation: none;
+}
+::view-transition-old(quest-stage) {
+  animation: stageOut 0.35s var(--ease-in-out) both;
+}
+::view-transition-new(quest-stage) {
+  animation: stageNew 0.55s var(--ease-out) both;
+}
+::view-transition-old(quest-dialog) {
+  animation: dialogOut 0.2s ease-in both;
+}
+::view-transition-new(quest-dialog) {
+  animation: dialogNew 0.4s var(--ease-out) 0.08s both;
+}
+@keyframes stageOut {
+  to {
+    opacity: 0;
+    transform: translateX(-6%) scale(0.97);
+  }
+}
+@keyframes stageNew {
+  from {
+    opacity: 0;
+    transform: translateX(8%) scale(1.02);
+  }
+}
+@keyframes dialogOut {
+  to {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+@keyframes dialogNew {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
 }
 .dialog > * {
   animation: dialogIn 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) both;
@@ -1021,5 +1072,169 @@
   }
   .progress span {
     height: 7px;
+  }
+}
+
+/* ---------- мікровзаємодії ---------- */
+.option--bad {
+  animation: shake 0.45s var(--ease-out);
+}
+@keyframes shake {
+  20% {
+    transform: translateX(-7px);
+  }
+  40% {
+    transform: translateX(6px);
+  }
+  60% {
+    transform: translateX(-4px);
+  }
+  80% {
+    transform: translateX(2px);
+  }
+}
+.option--ok {
+  animation: okPop 0.45s var(--ease-spring);
+}
+@keyframes okPop {
+  40% {
+    transform: scale(1.025);
+  }
+}
+.option--ok .option__key,
+.option--bad .option__key {
+  animation: keyPop 0.4s var(--ease-bounce);
+}
+@keyframes keyPop {
+  from {
+    transform: scale(0.4) rotate(-30deg);
+  }
+}
+.option {
+  transition:
+    background var(--d-base),
+    border-color var(--d-base),
+    transform var(--d-fast) var(--ease-out),
+    box-shadow var(--d-fast);
+}
+.option:hover:not([aria-disabled='true']) {
+  box-shadow: -4px 4px 0 var(--world);
+}
+.option:active:not([aria-disabled='true']) {
+  transform: translateX(3px) scale(0.99);
+}
+
+.counter__big {
+  display: inline-block;
+  animation: bump 0.4s var(--ease-bounce);
+}
+@keyframes bump {
+  from {
+    transform: scale(1.35);
+    color: var(--ok);
+  }
+}
+
+.hotspot__ripple {
+  fill: none;
+  stroke: var(--ok);
+  stroke-width: 4;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ripple 0.8s var(--ease-out) forwards;
+}
+@keyframes ripple {
+  from {
+    transform: scale(0.6);
+    opacity: 1;
+  }
+  to {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+.progress span {
+  transition:
+    background var(--d-base),
+    transform var(--d-base) var(--ease-spring);
+}
+.progress span[data-state='now'] {
+  transform: scaleY(1.35);
+}
+.progress span[data-state='done'] {
+  animation: segDone 0.45s var(--ease-spring);
+}
+@keyframes segDone {
+  from {
+    transform: scaleX(0.4);
+  }
+}
+
+.result__card {
+  animation: cardIn 0.6s var(--ease-spring);
+}
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.96);
+  }
+}
+.result__badge {
+  animation: stamp 0.7s var(--ease-bounce) 0.1s both;
+}
+@keyframes stamp {
+  from {
+    transform: scale(2.4) rotate(-25deg);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(0.92) rotate(4deg);
+    opacity: 1;
+  }
+}
+
+.intro__card {
+  animation: cardIn 0.6s var(--ease-out) 0.05s both;
+}
+.intro__card > svg {
+  animation: keyPop 0.6s var(--ease-bounce) 0.35s both;
+}
+
+.heart:not([disabled]) {
+  animation: heartIdle 1.2s ease-in-out infinite;
+}
+@keyframes heartIdle {
+  50% {
+    box-shadow:
+      0 7px 0 var(--ink),
+      0 0 0 10px rgb(229 72 77 / 0.15);
+  }
+}
+
+.pack__item {
+  transition:
+    background var(--d-base),
+    border-color var(--d-base),
+    transform var(--d-fast) var(--ease-out);
+}
+.pack__item:active {
+  transform: scale(0.97);
+}
+.pack__item[aria-pressed='true'] .pack__check {
+  animation: keyPop 0.35s var(--ease-bounce);
+}
+.pack__fill {
+  transition:
+    width 0.45s var(--ease-spring),
+    background var(--d-base);
+}
+
+.flag--found {
+  animation: flagHit 0.5s var(--ease-out);
+}
+@keyframes flagHit {
+  from {
+    background: #ffd166;
   }
 }

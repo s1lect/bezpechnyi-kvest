@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { confettiFrom } from '../../lib/confetti';
 import { bpmFromTaps, gaugeAngle } from '../../lib/rhythm';
 import { useSettings } from '../../lib/settings-context';
 import { sfx } from '../../lib/sound';
@@ -28,7 +29,10 @@ export function RhythmStep({ step, onDone }: { step: Step; onDone: Done }) {
     fx.beat();
     const next = [...taps, performance.now()].slice(-8);
     const b = bpmFromTaps(next);
-    if (b >= step.min && b <= step.max) setGood((g) => g + 1);
+    if (b >= step.min && b <= step.max) {
+      if (good + 1 === step.beats) confettiFrom(document.querySelector('.heart'), { count: 60, spread: 1.2, power: 0.9 });
+      setGood((g) => g + 1);
+    }
     setTaps(next);
   };
 

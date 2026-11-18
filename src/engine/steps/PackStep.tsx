@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { confettiFrom } from '../../lib/confetti';
 import { evaluatePack, type Verdict } from '../../lib/pack';
 import type { PackStep as Step } from '../../types';
 import { useSay, useSfx } from '../hooks';
@@ -28,8 +29,10 @@ export function PackStep({ step, onDone }: { step: Step; onDone: Done }) {
   const check = () => {
     setAttempts((a) => a + 1);
     const v = evaluatePack(step, chosen);
-    if (v.ok) fx.correct();
-    else fx.wrong();
+    if (v.ok) {
+      fx.correct();
+      confettiFrom(document.querySelector('.pack__meter'), { count: 50, spread: 1, power: 0.8 });
+    } else fx.wrong();
     setVerdict(v);
     say(v.text, step.speaker);
   };

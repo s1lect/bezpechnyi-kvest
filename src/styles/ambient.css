@@ -1,0 +1,314 @@
+/* ------------------------------------------------------------
+   Фоновий «живий» рух ілюстрацій: карта міста й сцени квестів.
+   Усе повільне й тихе. Вимикається в спокійному режимі
+   та при системному налаштуванні «зменшити рух» (global.css).
+------------------------------------------------------------- */
+[class*='amb-'] {
+  transform-box: fill-box;
+}
+
+/* хмари пливуть через усе небо */
+.amb-cloud {
+  animation: cloudDrift 52s linear infinite;
+  transform-box: view-box;
+}
+@keyframes cloudDrift {
+  from {
+    transform: translateX(-260px);
+  }
+  to {
+    transform: translateX(1260px);
+  }
+}
+
+/* птахи махають крилами і летять */
+.amb-birds {
+  animation: birdsFly 26s linear infinite;
+  transform-box: view-box;
+}
+@keyframes birdsFly {
+  from {
+    transform: translate(-700px, 20px);
+  }
+  50% {
+    transform: translate(0, -6px);
+  }
+  to {
+    transform: translate(700px, 14px);
+  }
+}
+
+/* річка тече */
+.amb-flow {
+  animation: flow 6s linear infinite;
+}
+@keyframes flow {
+  to {
+    stroke-dashoffset: -128;
+  }
+}
+
+/* човник пливе річкою */
+.amb-boat {
+  offset-path: path('M-60 322c180 40 340-40 520 10s340 90 720-10');
+  offset-rotate: 0deg;
+  offset-anchor: 17px 10px;
+  animation: sail 38s linear infinite;
+  transform-box: view-box;
+}
+@keyframes sail {
+  from {
+    offset-distance: 0%;
+  }
+  to {
+    offset-distance: 100%;
+  }
+}
+
+/* машинки їздять дорогами між районами */
+.amb-car {
+  transform-box: view-box;
+}
+.amb-car--a {
+  animation: carA 7s var(--ease-in-out) infinite alternate;
+}
+.amb-car--b {
+  animation: carB 8.5s var(--ease-in-out) infinite alternate;
+}
+@keyframes carA {
+  from {
+    transform: translateX(352px);
+  }
+  to {
+    transform: translateX(436px);
+  }
+}
+@keyframes carB {
+  from {
+    transform: translateX(834px) scaleX(-1);
+  }
+  to {
+    transform: translateX(744px) scaleX(-1);
+  }
+}
+
+/* дим із комина піднімається й тане */
+.amb-smoke {
+  transform-origin: center;
+  animation: smoke 3.3s ease-out infinite;
+  opacity: 0;
+}
+@keyframes smoke {
+  0% {
+    transform: translate(0, 0) scale(0.6);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translate(10px, -34px) scale(1.6);
+    opacity: 0;
+  }
+}
+
+/* вікна час від часу засвічуються */
+.amb-win {
+  animation: winLight 7s ease-in-out infinite;
+}
+@keyframes winLight {
+  0%,
+  60%,
+  100% {
+    fill: #bfe0ff;
+  }
+  70%,
+  90% {
+    fill: #ffe38a;
+  }
+}
+
+/* прапор майорить */
+.amb-flag {
+  transform-origin: left center;
+  animation: flag 1.6s ease-in-out infinite alternate;
+}
+@keyframes flag {
+  to {
+    transform: skewY(-8deg) scaleX(0.9);
+  }
+}
+
+/* стрілка годинника */
+.amb-clock {
+  transform-origin: 0 0;
+  transform-box: view-box;
+}
+
+/* Wi-Fi хвилі */
+.amb-wifi {
+  animation: wifi 2s ease-in-out infinite;
+}
+@keyframes wifi {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* рядки даних «пишуться» */
+.amb-data {
+  stroke-dasharray: 42;
+  animation: data 3s var(--ease-in-out) infinite;
+}
+@keyframes data {
+  0% {
+    stroke-dashoffset: 42;
+  }
+  50%,
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* курсор блимає */
+.amb-cursor {
+  animation: blink 1s steps(1) infinite;
+}
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* щит злегка плаває */
+.amb-float {
+  animation: floatY 3.2s ease-in-out infinite alternate;
+}
+@keyframes floatY {
+  to {
+    transform: translateY(-6px);
+  }
+}
+
+/* монета обертається */
+.amb-coin {
+  transform-origin: center;
+  animation: coin 3.4s ease-in-out infinite;
+}
+@keyframes coin {
+  0%,
+  60% {
+    transform: scaleX(1);
+  }
+  70% {
+    transform: scaleX(0.1);
+  }
+  80% {
+    transform: scaleX(1);
+  }
+}
+
+/* хрест лікарні «б'ється», як серце */
+.amb-pulse {
+  transform-origin: center;
+  animation: heartbeat 1.8s ease-in-out infinite;
+}
+@keyframes heartbeat {
+  0%,
+  40%,
+  100% {
+    transform: scale(1);
+  }
+  15% {
+    transform: scale(1.18);
+  }
+  28% {
+    transform: scale(1.08);
+  }
+}
+
+/* ---------- сцени квестів ---------- */
+.amb-flicker {
+  transform-origin: center bottom;
+  animation: flicker 0.9s ease-in-out infinite alternate;
+}
+@keyframes flicker {
+  0% {
+    transform: scale(1, 1) skewX(0);
+  }
+  33% {
+    transform: scale(0.94, 1.08) skewX(2deg);
+  }
+  66% {
+    transform: scale(1.04, 0.95) skewX(-2deg);
+  }
+  100% {
+    transform: scale(0.98, 1.05) skewX(1deg);
+  }
+}
+
+.amb-sway {
+  transform-origin: center bottom;
+  animation: sway 4s ease-in-out infinite alternate;
+}
+@keyframes sway {
+  from {
+    transform: rotate(-2deg);
+  }
+  to {
+    transform: rotate(2deg);
+  }
+}
+
+.amb-glow {
+  animation: glow 3s ease-in-out infinite alternate;
+}
+@keyframes glow {
+  from {
+    opacity: 0.04;
+  }
+  to {
+    opacity: 0.16;
+  }
+}
+
+.amb-idle {
+  animation: idle 0.5s ease-in-out infinite alternate;
+}
+@keyframes idle {
+  to {
+    transform: translateY(1.5px);
+  }
+}
+
+.amb-blink-slow {
+  animation: blinkSlow 2.4s ease-in-out infinite;
+}
+@keyframes blinkSlow {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+
+.amb-spin {
+  transform-origin: 0 0;
+  transform-box: view-box;
+}
+
+/* ---------- нахил карти за курсором ---------- */
+.tilt {
+  perspective: 1400px;
+}
+.tilt__inner {
+  transform-style: preserve-3d;
+  transition: transform 0.6s var(--ease-out);
+  will-change: transform;
+}

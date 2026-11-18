@@ -47,7 +47,11 @@ export function ProgressPage() {
 
       {done.length === 0 ? (
         <p className="empty no-print">
-          Тут з'являться твої значки. <Link to="/">Обери перший квест на карті</Link>.
+          Тут з'являться твої значки.{' '}
+          <Link viewTransition to="/">
+            Обери перший квест на карті
+          </Link>
+          .
         </p>
       ) : (
         <section className="band no-print">

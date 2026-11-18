@@ -39,10 +39,10 @@ export function AboutPage() {
         <a href="https://github.com/s1lect/bezpechnyi-kvest/blob/main/docs/CONTENT_GUIDE.md">CONTENT_GUIDE.md</a> у репозиторії.
       </p>
       <div className="hero__actions">
-        <Link to="/teacher" className="btn btn--ghost btn--small">
+        <Link viewTransition to="/teacher" className="btn btn--ghost btn--small">
           Кабінет вчителя
         </Link>
-        <Link to="/teacher/curriculum" className="btn btn--ghost btn--small">
+        <Link viewTransition to="/teacher/curriculum" className="btn btn--ghost btn--small">
           Відповідність програмі
         </Link>
       </div>

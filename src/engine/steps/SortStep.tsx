@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { confettiFrom } from '../../lib/confetti';
 import { seededShuffle } from '../../lib/shuffle';
 import type { SortStep as Step } from '../../types';
 import { useSay, useSfx } from '../hooks';
@@ -28,6 +29,7 @@ export function SortStep({ step, onDone }: { step: Step; onDone: Done }) {
   };
 
   const next = () => {
+    if (index + 1 === items.length && mistakes === 0) confettiFrom(document.querySelector('.sort'), { count: 70, spread: 1.2, power: 1 });
     setPlaced((p) => [...p, { text: item.text, bucket: item.bucket, ok: answer === item.bucket }]);
     setAnswer(null);
     setIndex((i) => i + 1);

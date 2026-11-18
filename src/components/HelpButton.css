@@ -125,3 +125,49 @@
     clip: rect(0 0 0 0);
   }
 }
+
+.help-dialog[open] {
+  animation: dialogPop 0.4s var(--ease-spring);
+}
+.help-dialog[open]::backdrop {
+  animation: fadeIn 0.3s ease-out;
+}
+@keyframes dialogPop {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.95);
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+}
+.help-dialog .hotline {
+  transition:
+    border-color var(--d-base),
+    background var(--d-base),
+    transform var(--d-fast) var(--ease-out);
+}
+.help-dialog .hotline:hover {
+  transform: translateX(4px);
+}
+.help-fab {
+  transition: transform var(--d-fast) var(--ease-out);
+}
+.help-fab svg {
+  animation: heartbeat 2.4s ease-in-out infinite;
+}
+@keyframes heartbeat {
+  0%,
+  40%,
+  100% {
+    transform: scale(1);
+  }
+  15% {
+    transform: scale(1.2);
+  }
+  28% {
+    transform: scale(1.08);
+  }
+}

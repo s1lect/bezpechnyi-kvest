@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { confettiFrom } from '../../lib/confetti';
 import { seededShuffle } from '../../lib/shuffle';
 import type { ChoiceStep as Step } from '../../types';
 import { useSay, useSfx } from '../hooks';
@@ -23,6 +24,7 @@ export function ChoiceStep({ step: raw, onDone, classMode }: { step: Step; onDon
     if (options[i].correct) {
       fx.correct();
       setSolved(true);
+      confettiFrom(document.querySelectorAll('.option')[i], { count: 26, spread: 0.8, power: 0.6 });
     } else {
       fx.wrong();
       setWrong((w) => new Set(w).add(i));

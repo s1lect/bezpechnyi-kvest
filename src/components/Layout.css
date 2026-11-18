@@ -73,9 +73,32 @@
 .topnav a:hover {
   background: var(--paper-2);
 }
+.topnav {
+  position: relative;
+  isolation: isolate;
+}
+.topnav a {
+  position: relative;
+  transition: color var(--d-base) var(--ease-out);
+}
 .topnav a.active {
-  background: var(--ink);
   color: var(--white);
+}
+.topnav a.active:hover {
+  background: transparent;
+}
+.topnav__pill {
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: var(--r-pill);
+  background: var(--ink);
+  transition:
+    transform 0.45s var(--ease-spring),
+    width 0.45s var(--ease-spring),
+    opacity var(--d-base);
 }
 
 @media (max-width: 760px) {

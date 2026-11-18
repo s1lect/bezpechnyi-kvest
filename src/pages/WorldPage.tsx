@@ -15,7 +15,7 @@ export function WorldPage() {
 
   return (
     <div className="container page">
-      <Link to="/" className="back">
+      <Link viewTransition to="/" className="back">
         До карти міста
       </Link>
       <header className="world-head" style={{ ['--c' as string]: world.color }}>
@@ -36,7 +36,7 @@ export function WorldPage() {
       )}
       <nav className="world-nav" aria-label="Інші райони">
         {WORLDS.filter((w) => w.id !== world.id).map((w) => (
-          <Link key={w.id} to={`/world/${w.id}`} className="world-chip" style={{ ['--c' as string]: w.color }}>
+          <Link viewTransition key={w.id} to={`/world/${w.id}`} className="world-chip" style={{ ['--c' as string]: w.color }}>
             {w.title}
           </Link>
         ))}

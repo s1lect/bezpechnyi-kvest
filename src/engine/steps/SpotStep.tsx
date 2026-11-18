@@ -69,6 +69,7 @@ export function SpotStep({ step, onDone }: { step: Step; onDone: Done }) {
                     }
                   }}
                 />
+                {isFound && <circle cx={h.x * W} cy={h.y * H} r={h.r * W} className="hotspot__ripple" pointerEvents="none" />}
                 {isFound && (
                   <g transform={`translate(${h.x * W + h.r * 7} ${h.y * H - h.r * 7})`} pointerEvents="none" className="hotspot__check">
                     <circle r="18" fill="#1fa97a" stroke="#172b4d" strokeWidth="3" />

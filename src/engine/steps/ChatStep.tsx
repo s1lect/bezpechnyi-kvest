@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { confettiFrom } from '../../lib/confetti';
 import { splitByFlags } from '../../lib/text';
 import type { ChatStep as Step } from '../../types';
 import { useSay, useSfx } from '../hooks';
@@ -19,6 +20,7 @@ export function ChatStep({ step, onDone }: { step: Step; onDone: Done }) {
     if (found.includes(fragment)) return;
     const f = allFlags.find((x) => x.fragment === fragment)!;
     fx.correct();
+    if (found.length + 1 === allFlags.length) confettiFrom(document.querySelector('.phone'), { count: 50, spread: 1.1, power: 0.9 });
     setFound((x) => [...x, fragment]);
     setLast(fragment);
     say(f.explain, step.speaker);

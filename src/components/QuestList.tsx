@@ -12,11 +12,13 @@ export function QuestList({ quests, showWorld = true }: { quests: Quest[]; showW
         const w = worldById(q.world);
         const r = progress[q.id];
         return (
-          <li key={q.id} className="qrow" style={{ ['--c' as string]: w.color }}>
+          <li key={q.id} className="qrow reveal" style={{ ['--c' as string]: w.color }}>
             <div className="qrow__main">
               {showWorld && <span className="qrow__world">{w.title}</span>}
-              <h3>
-                <Link to={`/quest/${q.id}`}>{q.title}</Link>
+              <h3 style={{ viewTransitionName: `quest-title-${q.id}` }}>
+                <Link viewTransition to={`/quest/${q.id}`}>
+                  {q.title}
+                </Link>
               </h3>
               <p>{q.tagline}</p>
             </div>
@@ -29,7 +31,7 @@ export function QuestList({ quests, showWorld = true }: { quests: Quest[]; showW
                 </span>
               )}
             </div>
-            <Link to={`/quest/${q.id}`} className="btn btn--ghost btn--small qrow__go" aria-hidden="true" tabIndex={-1}>
+            <Link viewTransition to={`/quest/${q.id}`} className="btn btn--ghost btn--small qrow__go" aria-hidden="true" tabIndex={-1}>
               {r ? 'Ще раз' : 'Грати'}
             </Link>
           </li>

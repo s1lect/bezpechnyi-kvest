@@ -504,3 +504,122 @@
   gap: 0.5rem;
   padding-left: 1.2rem;
 }
+
+.tabs__intro {
+  color: var(--ink-soft);
+  margin-bottom: 1.25rem;
+}
+.page > .tabs {
+  margin-top: 2rem;
+}
+.teacher-grid {
+  margin-top: 0;
+}
+
+/* ---------- факти героя ---------- */
+.hero__facts {
+  display: flex;
+  gap: 2rem;
+  margin: 2rem 0 0;
+}
+.hero__facts div {
+  display: flex;
+  flex-direction: column-reverse;
+}
+.hero__facts dd {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--t-2xl);
+  line-height: 1.1;
+}
+.hero__facts dt {
+  color: var(--ink-soft);
+  font-size: var(--t-sm);
+}
+
+/* ---------- рух на сторінках ---------- */
+.badges .badge {
+  animation: riseIn 0.5s var(--ease-out) both;
+}
+.badges .badge:nth-child(2) {
+  animation-delay: 0.06s;
+}
+.badges .badge:nth-child(3) {
+  animation-delay: 0.12s;
+}
+.badges .badge:nth-child(4) {
+  animation-delay: 0.18s;
+}
+.badges .badge:nth-child(5) {
+  animation-delay: 0.24s;
+}
+.badges .badge:nth-child(6) {
+  animation-delay: 0.3s;
+}
+.badge--on svg {
+  animation: stampSmall 0.6s var(--ease-bounce) 0.3s both;
+}
+@keyframes stampSmall {
+  from {
+    transform: scale(1.8) rotate(-20deg);
+    opacity: 0;
+  }
+}
+.steps3 li {
+  transition: background var(--d-base);
+}
+.steps3 li:hover {
+  background: #fffaf0;
+}
+.steps3 li:hover::before {
+  animation: keySpin 0.6s var(--ease-spring);
+}
+@keyframes keySpin {
+  from {
+    transform: rotate(-180deg) scale(0.6);
+  }
+}
+.world-head > svg {
+  animation: stampSmall 0.6s var(--ease-bounce) both;
+}
+.world-chip {
+  transition:
+    background var(--d-base),
+    transform var(--d-fast) var(--ease-out);
+}
+.world-chip:hover {
+  transform: translateY(-2px);
+}
+.timeline li {
+  animation: riseIn 0.5s var(--ease-out) both;
+}
+.timeline li:nth-child(2) {
+  animation-delay: 0.08s;
+}
+.timeline li:nth-child(3) {
+  animation-delay: 0.16s;
+}
+.timeline li:nth-child(4) {
+  animation-delay: 0.24s;
+}
+.timeline li:nth-child(5) {
+  animation-delay: 0.32s;
+}
+.page > h1:first-child,
+.world-head h1,
+.lesson h1 {
+  animation: titleReveal 0.8s var(--ease-out) both;
+}
+.qrow {
+  transition: background var(--d-base);
+}
+.qrow:hover {
+  background: linear-gradient(90deg, color-mix(in srgb, var(--c) 10%, transparent), transparent 70%);
+}
+.qrow__go {
+  transition: transform var(--d-base) var(--ease-spring);
+}
+.qrow:hover .qrow__go {
+  transform: translateX(4px);
+}

@@ -19,11 +19,57 @@
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
+    <script>
+      // Спокійний режим і великий текст застосовуємо до першого кадру, щоб не було спалаху анімацій
+      try {
+        var st = JSON.parse(localStorage.getItem('bk.settings.v1') || '{}');
+        document.documentElement.dataset.calm = String(!!st.calm);
+        document.documentElement.dataset.large = String(!!st.large);
+      } catch (e) {}
+    </script>
+    <style>
+      .boot {
+        position: fixed;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        background: #f3f7ff;
+      }
+      .boot svg {
+        width: 64px;
+        height: 64px;
+        animation: boot 1s ease-in-out infinite alternate;
+      }
+      @keyframes boot {
+        to {
+          transform: scale(0.88);
+          opacity: 0.6;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .boot svg {
+          animation: none;
+        }
+      }
+    </style>
     <title>Безпечний квест — квести з безпеки для шкіл НУШ</title>
   </head>
   <body>
     <noscript>Для роботи квестів увімкніть JavaScript у браузері.</noscript>
-    <div id="root"></div>
+    <div id="root">
+      <div class="boot" role="status" aria-label="Завантаження">
+        <svg viewBox="0 0 48 48" aria-hidden="true">
+          <path
+            d="M24 3l17 6v13c0 11-7.5 19-17 23C14.5 41 7 33 7 22V9z"
+            fill="#ffc531"
+            stroke="#172b4d"
+            stroke-width="3"
+            stroke-linejoin="round"
+          />
+          <path d="M17 24l5 5 10-11" stroke="#172b4d" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

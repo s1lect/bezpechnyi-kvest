@@ -109,14 +109,16 @@ function Kitchen() {
       <rect x="180" y="360" width="100" height="70" rx="6" fill="#26345a" {...S} />
       <ellipse cx="210" cy="280" rx="56" ry="12" fill="#2a2f3a" {...S} />
       <path d="M266 280h60" stroke={INK} strokeWidth="10" strokeLinecap="round" />
-      <path
-        d="M168 274c4-26 16-20 14-44 14 14 10 26 18 30 2-22 12-34 10-56 18 20 18 40 16 52 8-6 10-18 8-28 14 14 16 32 10 46z"
-        fill="#ff8a3d"
-        stroke="#e14b57"
-        strokeWidth="3"
-        strokeLinejoin="round"
-      />
-      <path d="M192 274c2-12 8-10 8-22 8 8 6 16 10 18 2-10 6-14 6-22 8 10 8 18 6 26z" fill="#ffc531" />
+      <g className="amb-flicker">
+        <path
+          d="M168 274c4-26 16-20 14-44 14 14 10 26 18 30 2-22 12-34 10-56 18 20 18 40 16 52 8-6 10-18 8-28 14 14 16 32 10 46z"
+          fill="#ff8a3d"
+          stroke="#e14b57"
+          strokeWidth="3"
+          strokeLinejoin="round"
+        />
+        <path d="M192 274c2-12 8-10 8-22 8 8 6 16 10 18 2-10 6-14 6-22 8 10 8 18 6 26z" fill="#ffc531" />
+      </g>
       {/* рушник (towel 33%,33%) */}
       <circle cx="330" cy="168" r="6" fill={INK} />
       <path d="M312 172h36l6 64h-48z" fill="#e14b57" {...S} />
@@ -225,7 +227,9 @@ function Field() {
       {[480, 600, 690].map((x, i) => (
         <g key={x}>
           <path d={`M${x} ${290 + i * 4}v-40`} {...S} />
-          <circle cx={x} cy={234 + i * 4} r="28" fill="#3d9b4f" {...S} />
+          <g className="amb-sway" style={{ animationDelay: `${i * 0.7}s` }}>
+            <circle cx={x} cy={234 + i * 4} r="28" fill="#3d9b4f" {...S} />
+          </g>
         </g>
       ))}
     </>
@@ -292,16 +296,18 @@ function Crossing() {
       {/* світлофор: червоний для пішоходів */}
       <path d="M252 330V150" {...S} strokeWidth={7} />
       <rect x="226" y="120" width="52" height="96" rx="10" fill={INK} />
-      <circle cx="252" cy="146" r="16" fill="#e14b57" />
+      <circle cx="252" cy="146" r="16" fill="#e14b57" className="amb-blink-slow" />
       <circle cx="252" cy="190" r="16" fill="#3a4a6b" />
       <path d="M248 138a4 4 0 1 0 8 0 4 4 0 1 0-8 0M246 146h12l-2 12h-8z" fill="#fff" />
       {/* авто, що наближається */}
       <g transform="translate(70 360)">
-        <rect x="0" y="20" width="170" height="44" rx="14" fill="#2b5be8" {...S} />
-        <path d="M30 20l22-26h64l26 26z" fill="#bfe0ff" {...S} />
-        <circle cx="40" cy="66" r="15" fill={INK} />
-        <circle cx="130" cy="66" r="15" fill={INK} />
-        <path d="M172 38h28M172 50h20" stroke="#ffc531" strokeWidth="5" strokeLinecap="round" />
+        <g className="amb-idle">
+          <rect x="0" y="20" width="170" height="44" rx="14" fill="#2b5be8" {...S} />
+          <path d="M30 20l22-26h64l26 26z" fill="#bfe0ff" {...S} />
+          <circle cx="40" cy="66" r="15" fill={INK} />
+          <circle cx="130" cy="66" r="15" fill={INK} />
+          <path d="M172 38h28M172 50h20" stroke="#ffc531" strokeWidth="5" strokeLinecap="round" />
+        </g>
       </g>
       {/* хлопчик переходить на червоне (red 34%,66%) */}
       <Person x={340} y={410} body="#ff8a3d" />
@@ -344,7 +350,7 @@ function Shelter() {
         <g key={x}>
           <path d={`M${x} 0v60`} stroke="#1b2540" strokeWidth="4" />
           <path d={`M${x - 30} 60h60l-10 26h-40z`} fill="#ffc531" stroke="#1b2540" strokeWidth="4" />
-          <ellipse cx={x} cy="130" rx="150" ry="70" fill="#ffc531" opacity=".08" />
+          <ellipse cx={x} cy="130" rx="150" ry="70" fill="#ffc531" opacity=".08" className="amb-glow" />
         </g>
       ))}
       <rect x="80" y="380" width="360" height="26" rx="6" fill="#c08457" stroke="#1b2540" strokeWidth="4" />
@@ -372,7 +378,9 @@ function Park() {
       {[90, 220, 920].map((x) => (
         <g key={x}>
           <path d={`M${x} 380v-70`} {...S} strokeWidth={6} />
-          <circle cx={x} cy="270" r="54" fill="#3d9b4f" {...S} />
+          <g className="amb-sway">
+            <circle cx={x} cy="270" r="54" fill="#3d9b4f" {...S} />
+          </g>
         </g>
       ))}
       <path d="M480 300c20-20 40-20 60 0" stroke="#f9a8d4" strokeWidth="10" fill="none" strokeLinecap="round" />

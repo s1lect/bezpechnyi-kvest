@@ -48,6 +48,15 @@
   --shadow-ink: 0 3px 0 var(--ink);
   --focus: 0 0 0 3px var(--paper), 0 0 0 6px var(--rescue);
 
+  /* ---------- рух ---------- */
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.3, 1.5, 0.5, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.8, 0.64, 1);
+  --d-fast: 150ms;
+  --d-base: 280ms;
+  --d-slow: 600ms;
+
   color-scheme: light;
 }
 
@@ -243,22 +252,189 @@ html[data-calm='true'] *::after {
   }
 }
 
-/* ---------- завантаження ---------- */
-.loading {
+/* ---------- скелетон завантаження ---------- */
+.skeleton {
   display: grid;
-  place-items: center;
-  min-height: 50vh;
+  gap: 0.9rem;
 }
-.loading__dot {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: var(--signal);
-  border: 3px solid var(--ink);
-  animation: bounce 0.7s ease-in-out infinite alternate;
+.skeleton__line,
+.skeleton__card {
+  border-radius: var(--r-md);
+  background: linear-gradient(100deg, var(--paper-2) 30%, #f7faff 50%, var(--paper-2) 70%) 0 0 / 300% 100%;
+  animation: shimmer 1.4s linear infinite;
 }
-@keyframes bounce {
+.skeleton__line--title {
+  height: 3.2rem;
+  width: min(520px, 80%);
+}
+.skeleton__line--lead {
+  height: 1.2rem;
+  width: min(720px, 95%);
+}
+.skeleton__line--short {
+  width: min(420px, 60%);
+}
+.skeleton__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+.skeleton__card {
+  height: 180px;
+  border-radius: var(--r-lg);
+}
+@keyframes shimmer {
   to {
-    transform: translateY(-18px);
+    background-position: -150% 0;
   }
+}
+
+/* ---------- переходи між сторінками (View Transitions API) ---------- */
+::view-transition-old(root) {
+  animation: vtOut 0.22s var(--ease-in-out) both;
+}
+::view-transition-new(root) {
+  animation: vtIn 0.42s var(--ease-out) both;
+}
+@keyframes vtOut {
+  to {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.99);
+    filter: blur(2px);
+  }
+}
+@keyframes vtIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+}
+/* шапка залишається на місці, змінюється лише вміст */
+.topbar {
+  view-transition-name: topbar;
+}
+::view-transition-group(topbar) {
+  animation: none;
+}
+/* спільні елементи (рядок квесту → картка квесту) плавно перетікають */
+::view-transition-group(*) {
+  animation-duration: 0.5s;
+  animation-timing-function: var(--ease-out);
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+html[data-calm='true']::view-transition-group(*),
+html[data-calm='true']::view-transition-old(*),
+html[data-calm='true']::view-transition-new(*) {
+  animation: none !important;
+}
+
+/* ---------- утиліти руху ---------- */
+@keyframes riseIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+/* поява дочірніх елементів по черзі: --i задає порядок */
+.stagger > * {
+  animation: riseIn 0.5s var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * 45ms + 80ms);
+}
+/* заголовок розкривається, наче з-під шторки */
+.reveal-title {
+  animation: titleReveal 0.8s var(--ease-out) both;
+}
+@keyframes titleReveal {
+  from {
+    clip-path: inset(0 0 100% 0);
+    transform: translateY(0.35em);
+  }
+  to {
+    clip-path: inset(0 0 -20% 0);
+  }
+}
+/* поява під час прокручування — без JavaScript, де браузер підтримує scroll-driven animations */
+@supports (animation-timeline: view()) {
+  .reveal {
+    animation: riseIn linear both;
+    animation-timeline: view();
+    animation-range: entry 5% entry 45%;
+  }
+  .reveal-scale {
+    animation: scaleIn linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 50%;
+  }
+}
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.94) translateY(24px);
+  }
+}
+/* кнопки: натискання стискає, наведення трохи піднімає */
+.btn {
+  transition:
+    transform var(--d-fast) var(--ease-out),
+    box-shadow var(--d-fast) var(--ease-out),
+    background var(--d-base);
+}
+.btn--signal {
+  background-image: linear-gradient(110deg, transparent 35%, rgb(255 255 255 / 0.55) 50%, transparent 65%);
+  background-size: 250% 100%;
+  background-position: 120% 0;
+  background-repeat: no-repeat;
+}
+.btn--signal:hover {
+  animation: shine 0.9s var(--ease-out);
+}
+@keyframes shine {
+  to {
+    background-position: -120% 0;
+  }
+}
+.icon-btn {
+  transition:
+    transform var(--d-fast) var(--ease-out),
+    background var(--d-base);
+}
+.icon-btn:hover {
+  transform: rotate(-8deg) scale(1.06);
+}
+.icon-btn:active {
+  transform: scale(0.92);
+}
+
+/* ---------- кінетичний заголовок ---------- */
+.kinetic__mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+.kinetic__word {
+  display: inline-block;
+  animation: wordUp 0.85s var(--ease-out) both;
+}
+@keyframes wordUp {
+  from {
+    transform: translateY(105%) rotate(4deg);
+  }
+}
+/* наступні елементи героя з'являються після заголовка */
+.enter {
+  animation: riseIn 0.7s var(--ease-out) both;
+  animation-delay: var(--delay, 0s);
+}
+
+html[data-splash='on'] :is(.kinetic__word, .enter, .district, .stagger > *, .reveal-title) {
+  animation-play-state: paused;
 }

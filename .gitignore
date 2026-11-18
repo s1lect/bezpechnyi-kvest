@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Саундтрек відео генерується скриптом video/scripts/soundtrack.py
+video/public/soundtrack.wav
+video/out

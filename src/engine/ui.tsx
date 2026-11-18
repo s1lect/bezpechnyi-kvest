@@ -100,7 +100,7 @@ export function NextButton({ onClick, label = 'Далі' }: { onClick: () => voi
 export function Counter({ value, total, label, children }: { value: number; total: number; label: string; children?: ReactNode }) {
   return (
     <div className="counter">
-      <span className="counter__big" aria-hidden="true">
+      <span className="counter__big" aria-hidden="true" key={value}>
         {value}/{total}
       </span>
       <span>
