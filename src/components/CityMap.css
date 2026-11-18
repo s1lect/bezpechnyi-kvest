@@ -1,0 +1,53 @@
+.citymap {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 6px 0 var(--ink));
+  border-radius: 28px;
+}
+
+.district {
+  cursor: pointer;
+  outline: none;
+}
+
+.district__lift {
+  transition: transform 0.2s cubic-bezier(0.3, 1.4, 0.6, 1);
+  transform-box: fill-box;
+  transform-origin: center bottom;
+}
+
+.district:hover .district__lift,
+.district:focus-visible .district__lift {
+  transform: translateY(-8px);
+}
+
+.district:focus-visible .district__plate {
+  stroke: var(--rescue);
+  stroke-width: 7;
+}
+
+.district:hover .district__label,
+.district:focus-visible .district__label {
+  fill: var(--signal);
+}
+
+/* Одна оркестрована поява карти при завантаженні */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
+}
+
+.district {
+  animation: rise 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.district:nth-of-type(2) { animation-delay: 0.06s; }
+.district:nth-of-type(3) { animation-delay: 0.12s; }
+.district:nth-of-type(4) { animation-delay: 0.18s; }
+.district:nth-of-type(5) { animation-delay: 0.24s; }
+.district:nth-of-type(6) { animation-delay: 0.3s; }
+
+.citymap--tall { display: none; }
+@media (max-width: 640px) {
+  .citymap--wide { display: none; }
+  .citymap--tall { display: block; }
+}
