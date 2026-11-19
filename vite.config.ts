@@ -1,12 +1,32 @@
 import react from '@vitejs/plugin-react';
-import { defineConfig } from 'vite';
+import { defineConfig, type Plugin } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
+
+/** Додає <link rel="preload"> для шрифтів першого екрана, щоб текст не «стрибав» після їх завантаження. */
+function preloadFonts(patterns: RegExp[]): Plugin {
+  return {
+    name: 'preload-fonts',
+    apply: 'build',
+    transformIndexHtml(html, ctx) {
+      const files = Object.keys(ctx.bundle ?? {}).filter((f) => patterns.some((re) => re.test(f)));
+      return {
+        html,
+        tags: files.map((f) => ({
+          tag: 'link',
+          attrs: { rel: 'preload', href: `./${f}`, as: 'font', type: 'font/woff2', crossorigin: '' },
+          injectTo: 'head' as const,
+        })),
+      };
+    },
+  };
+}
 
 // base: './' — збірка працює з будь-якої підпапки (GitHub Pages, шкільний сервер)
 export default defineConfig({
   base: './',
   plugins: [
     react(),
+    preloadFonts([/unbounded-cyrillic-(700|800)-normal-.*\.woff2$/, /onest-cyrillic-wght-normal-.*\.woff2$/]),
     VitePWA({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'apple-touch-icon.png'],
@@ -26,7 +46,7 @@ export default defineConfig({
         ],
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,svg,woff2}'],
+        globPatterns: ['**/*.{js,css,html,svg,woff2,webp}'],
         globIgnores: ['og-image.png'],
       },
     }),

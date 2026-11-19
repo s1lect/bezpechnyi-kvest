@@ -18,6 +18,8 @@
   --ok-soft: #d6f5ea;
   --alarm: #e14b57;
   --alarm-soft: #fde3e5;
+  /* темніший відтінок для білого тексту: контраст ≥ 4.5 */
+  --alarm-strong: #c42f3c;
   --white: #ffffff;
 
   --w-home: #ff8a3d;
@@ -232,6 +234,7 @@ button {
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
@@ -437,4 +440,17 @@ html[data-calm='true']::view-transition-new(*) {
 
 html[data-splash='on'] :is(.kinetic__word, .enter, .district, .stagger > *, .reveal-title) {
   animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-scale,
+  .kinetic__word,
+  .enter,
+  .stagger > * {
+    animation: none !important;
+  }
+}
+html[data-calm='true'] :is(.reveal, .reveal-scale) {
+  animation: none !important;
 }

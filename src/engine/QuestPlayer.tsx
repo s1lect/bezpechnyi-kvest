@@ -128,7 +128,7 @@ export function QuestPlayer({ quest }: { quest: Quest }) {
         </button>
         <div className="player__title">
           <span className="player__world">{world.title}</span>
-          <strong>{quest.title}</strong>
+          {phase === 'play' ? <h1 className="player__name">{quest.title}</h1> : <strong className="player__name">{quest.title}</strong>}
         </div>
         {phase === 'play' && (
           <div

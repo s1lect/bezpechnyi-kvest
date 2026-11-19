@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://s1lect.github.io/bezpechnyi-kvest/sitemap.xml

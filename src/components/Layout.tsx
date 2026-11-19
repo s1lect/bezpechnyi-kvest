@@ -55,7 +55,8 @@ export function Layout() {
               Батькам
             </NavLink>
             <NavLink to="/progress" viewTransition>
-              Мої досягнення
+              <span className="label-long">Мої досягнення</span>
+              <span className="label-short">Досягнення</span>
             </NavLink>
           </NavPill>
           <button
@@ -87,21 +88,52 @@ export function Layout() {
       {!immersive && (
         <footer className="footer no-print">
           <div className="container footer__inner">
-            <p>
-              Безпечний квест — відкритий освітній проєкт для закладів загальної середньої освіти. Зміст узгоджено з модельними програмами
-              НУШ і потребує фахового рецензування перед офіційним використанням.
-            </p>
-            <nav aria-label="Додатково">
+            <div className="footer__brand">
+              <Link viewTransition to="/" className="brand">
+                <Logo />
+                <span className="brand__name">Безпечний квест</span>
+              </Link>
+              <p>
+                Відкритий освітній проєкт для закладів загальної середньої освіти. Зміст узгоджено з модельними програмами НУШ і потребує
+                фахового рецензування перед офіційним використанням.
+              </p>
+              <p className="footer__sos">
+                Екстрені служби: <a href="tel:112">112</a>. Дитяча лінія: <a href="tel:116111">116 111</a>.
+              </p>
+            </div>
+            <nav className="footer__col" aria-label="Учням">
+              <h2>Учням</h2>
+              <Link viewTransition to="/">
+                Карта квестів
+              </Link>
+              <Link viewTransition to="/progress">
+                Мої досягнення
+              </Link>
+            </nav>
+            <nav className="footer__col" aria-label="Дорослим">
+              <h2>Дорослим</h2>
+              <Link viewTransition to="/teacher">
+                Кабінет вчителя
+              </Link>
               <Link viewTransition to="/teacher/curriculum">
                 Відповідність програмі НУШ
               </Link>
+              <Link viewTransition to="/parents">
+                Батькам
+              </Link>
+            </nav>
+            <nav className="footer__col" aria-label="Проєкт">
+              <h2>Проєкт</h2>
               <Link viewTransition to="/about">
                 Про проєкт
               </Link>
-              <a href="https://github.com/s1lect/bezpechnyi-kvest" rel="noreferrer">
-                Код на GitHub
-              </a>
+              <a href="https://github.com/s1lect/bezpechnyi-kvest">Код на GitHub</a>
+              <a href="https://github.com/s1lect/bezpechnyi-kvest/blob/main/docs/CONTENT_GUIDE.md">Як додати квест</a>
             </nav>
+          </div>
+          <div className="container footer__bottom">
+            <span>Код — MIT, навчальний зміст — CC BY 4.0</span>
+            <span>Тренуємо безпеку, поки все спокійно</span>
           </div>
         </footer>
       )}

@@ -10,7 +10,7 @@
   padding: 0.6rem 1.15rem;
   border: 2px solid var(--ink);
   border-radius: var(--r-pill);
-  background: var(--alarm);
+  background: var(--alarm-strong);
   color: var(--white);
   font-weight: 700;
   cursor: pointer;
@@ -104,11 +104,30 @@
   }
 }
 
-/* Під час квесту на телефоні — компактна кругла кнопка, щоб не закривати текст */
+/* На телефоні — компактна кругла кнопка, щоб не закривати текст */
 @media (max-width: 760px) {
-  .shell--immersive .help-fab {
+  .help-fab {
+    width: 52px;
+    height: 52px;
+    min-height: 52px;
     padding: 0;
     justify-content: center;
+    right: 0.9rem;
+    bottom: 0.9rem;
+  }
+  .help-fab svg {
+    width: 24px;
+    height: 24px;
+  }
+  .help-fab__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+  .shell--immersive .help-fab {
     top: 0.6rem;
     bottom: auto;
     right: 4.2rem;
@@ -116,58 +135,5 @@
     height: 44px;
     min-height: 44px;
     box-shadow: 0 2px 0 var(--ink);
-  }
-  .shell--immersive .help-fab__label {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip: rect(0 0 0 0);
-  }
-}
-
-.help-dialog[open] {
-  animation: dialogPop 0.4s var(--ease-spring);
-}
-.help-dialog[open]::backdrop {
-  animation: fadeIn 0.3s ease-out;
-}
-@keyframes dialogPop {
-  from {
-    opacity: 0;
-    transform: translateY(24px) scale(0.95);
-  }
-}
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-}
-.help-dialog .hotline {
-  transition:
-    border-color var(--d-base),
-    background var(--d-base),
-    transform var(--d-fast) var(--ease-out);
-}
-.help-dialog .hotline:hover {
-  transform: translateX(4px);
-}
-.help-fab {
-  transition: transform var(--d-fast) var(--ease-out);
-}
-.help-fab svg {
-  animation: heartbeat 2.4s ease-in-out infinite;
-}
-@keyframes heartbeat {
-  0%,
-  40%,
-  100% {
-    transform: scale(1);
-  }
-  15% {
-    transform: scale(1.2);
-  }
-  28% {
-    transform: scale(1.08);
   }
 }

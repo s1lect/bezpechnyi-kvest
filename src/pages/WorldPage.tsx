@@ -1,10 +1,22 @@
 import { Link, useParams } from 'react-router-dom';
 import { Portrait } from '../components/Portrait';
+import { Scene } from '../components/Scene';
 import { QuestList } from '../components/QuestList';
 import { questsByWorld } from '../data/quests';
 import { SPEAKERS, WORLDS } from '../data/worlds';
+import type { SceneId, WorldId } from '../types';
 import { NotFound } from './NotFound';
 import './pages.css';
+
+/** Сцена-банер, характерна для району. */
+const BANNER: Record<WorldId, SceneId> = {
+  home: 'crossing',
+  war: 'shelter',
+  cyber: 'phone',
+  money: 'street',
+  people: 'classroom',
+  health: 'park',
+};
 
 export function WorldPage() {
   const { id } = useParams();
@@ -19,16 +31,26 @@ export function WorldPage() {
         До карти міста
       </Link>
       <header className="world-head" style={{ ['--c' as string]: world.color }}>
-        <Portrait id={world.guide} size={96} />
-        <div>
+        <div className="world-head__text">
           <span className="world-head__short">{world.short}</span>
           <h1>{world.title}</h1>
           <p className="lead">{world.description}</p>
           <p className="world-head__guide">
-            Провідник: {guide.name}, {guide.role}
+            <Portrait id={world.guide} size={48} />
+            <span>
+              Провідник: <strong>{guide.name}</strong>, {guide.role}
+            </span>
           </p>
         </div>
+        <div className="world-head__banner" aria-hidden="true">
+          <Scene id={BANNER[world.id]} className="world-head__scene" />
+          <div className="world-head__badge">
+            <strong>{quests.length}</strong>
+            <span>{quests.length === 1 ? 'квест' : quests.length < 5 ? 'квести' : 'квестів'}</span>
+          </div>
+        </div>
       </header>
+      <h2 className="sr-only">Квести району</h2>
       {quests.length ? (
         <QuestList quests={quests} showWorld={false} />
       ) : (

@@ -143,7 +143,7 @@ export function LessonPage() {
         </div>
       </div>
       <header>
-        <p className="lesson__world" style={{ color: w.color }}>
+        <p className="lesson__world" style={{ ['--c' as string]: w.color }}>
           {w.title}
         </p>
         <h1>Урок: {q.title}</h1>

@@ -2,7 +2,8 @@ import { useRef, useState } from 'react';
 import './PromoVideo.css';
 
 const SRC = `${import.meta.env.BASE_URL}promo.mp4`;
-const POSTER = `${import.meta.env.BASE_URL}promo-poster.jpg`;
+const BASE = import.meta.env.BASE_URL;
+const POSTER = `${BASE}promo-poster.jpg`;
 
 /** Промовідео платформи: обкладинка з кнопкою, відео вантажиться лише після натискання. */
 export function PromoVideo() {
@@ -30,7 +31,14 @@ export function PromoVideo() {
           />
         ) : (
           <button className="promo__cover" onClick={play} aria-label="Відтворити відео про проєкт, 40 секунд">
-            <img src={POSTER} alt="" loading="lazy" decoding="async" width={1920} height={1080} />
+            <picture>
+              <source
+                type="image/webp"
+                srcSet={`${BASE}promo-poster-640.webp 640w, ${BASE}promo-poster.webp 1280w`}
+                sizes="(max-width: 860px) 100vw, 60vw"
+              />
+              <img src={POSTER} alt="" loading="lazy" decoding="async" width={1920} height={1080} />
+            </picture>
             <span className="promo__play" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="34" height="34">
                 <path d="M8 5.5v13l11-6.5z" fill="currentColor" />

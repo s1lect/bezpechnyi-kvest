@@ -26,6 +26,11 @@
   line-height: 1.2;
   min-width: 0;
 }
+.player__name {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.2;
+}
 .player__title strong {
   font-family: var(--font-display);
   font-size: 1rem;
@@ -227,9 +232,9 @@
   opacity: 0.85;
 }
 .option--bad .option__key {
-  background: var(--alarm);
+  background: var(--alarm-strong);
   color: var(--white);
-  border-color: var(--alarm);
+  border-color: var(--alarm-strong);
 }
 
 .votes {
@@ -292,7 +297,7 @@
   --btn-fg: var(--white);
 }
 .btn--bad {
-  --btn-bg: var(--alarm);
+  --btn-bg: var(--alarm-strong);
   --btn-fg: var(--white);
 }
 

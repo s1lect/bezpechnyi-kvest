@@ -32,7 +32,7 @@
     "lint": "eslint src && tsc",
     "soundtrack": "python3 scripts/soundtrack.py",
     "render": "remotion render src/index.ts Promo ../public/promo.mp4 --codec=h264 --crf=20",
-    "poster": "remotion still src/index.ts Promo ../public/promo-poster.jpg --frame=580 --jpeg-quality=88"
+    "poster": "remotion still src/index.ts Promo ../public/promo-poster.jpg --frame=400 --jpeg-quality=88"
   },
   "allowScripts": {
     "esbuild": false

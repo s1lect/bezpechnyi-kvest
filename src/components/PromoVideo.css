@@ -17,6 +17,7 @@
 
 .promo__video,
 .promo__cover,
+.promo__cover picture,
 .promo__cover img {
   display: block;
   width: 100%;
